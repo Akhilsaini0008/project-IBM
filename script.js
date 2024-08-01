@@ -1,49 +1,43 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Login form validation
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const phone = document.getElementById('phone').value;
-            const password = document.getElementById('password').value;
+function showSection(sectionId) {
+  const sections = document.querySelectorAll(".form-container");
+  sections.forEach((section) => section.classList.remove("active"));
+  document.getElementById(sectionId).classList.add("active");
+}
 
-            if (password.length < 8 || !/\d/.test(password)) {
-                alert('Password must be at least 8 characters long and contain at least one number.');
-                return;
-            }
+document
+  .getElementById("sellRecyclableForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
 
-            // Simulate successful login
-            window.location.href = 'index.html'; // Redirect to homepage after login
-        });
-    }
+    const paper = parseFloat(document.getElementById("paper").value) || 0;
+    const plastic = parseFloat(document.getElementById("plastic").value) || 0;
+    const glass = parseFloat(document.getElementById("glass").value) || 0;
 
-    // Create account form validation
-    const createAccountForm = document.getElementById('createAccountForm');
-    if (createAccountForm) {
-        createAccountForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // Additional validation and account creation logic here
-            alert('Account created successfully!');
-            window.location.href = 'login.html'; // Redirect to login page
-        });
-    }
+    const eTokens = paper * 0.5 + plastic * 0.8 + glass * 0.2;
 
-    // Sell recyclable form calculation
-    const sellRecyclableForm = document.getElementById('sellRecyclableForm');
-    if (sellRecyclableForm) {
-        sellRecyclableForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+    document.getElementById(
+      "result"
+    ).innerText = `You have earned ${eTokens.toFixed(2)} E-Tokens`;
 
-            const paper = parseFloat(document.getElementById('paper').value) || 0;
-            const plastic = parseFloat(document.getElementById('plastic').value) || 0;
-            const glass = parseFloat(document.getElementById('glass').value) || 0;
+    updateWallet(eTokens);
+  });
 
-            const paperRate = 2;
-            const plasticRate = 1;
-            const glassRate = 3;
+function updateWallet(tokens) {
+  const walletTokens = document.getElementById("walletTokens");
+  let currentTokens = parseFloat(walletTokens.innerText.split(": ")[1]) || 0;
+  currentTokens += tokens;
+  walletTokens.innerText = `Total E-Tokens: ${currentTokens.toFixed(2)}`;
+}
 
-            const totalEtokens = (paper * paperRate) + (plastic * plasticRate) + (glass * glassRate);
-            // document.getElementById('result').innerText = Total e-Tokens: ${tostalEtokens};
-        });
-    }
-});
+// Initialize carousel
+let currentSlide = 0;
+const slides = document.querySelectorAll(".carousel img");
+const totalSlides = slides.length;
+
+function showNextSlide() {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide + 1) % totalSlides;
+  slides[currentSlide].classList.add("active");
+}
+
+setInterval(showNextSlide, 3000);
