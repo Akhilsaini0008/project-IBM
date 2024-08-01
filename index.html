@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recycle Shop</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="script.js">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,7 +102,6 @@
             font-size: 18px;
         }
     </style>
-     <!-- <link rel="stylesheet" href="styles.css" type="text/css"> -->
 </head>
 <body>
     <header>
@@ -242,7 +240,7 @@
                 const glassRate = 3;
 
                 const totalEtokens = (paper * paperRate) + (plastic * plasticRate) + (glass * glassRate);
-                // document.getElementById('result')s.innerText = Total E-Tokens: ${totalEtokens};
+                document.getElementById('result').innerText = `Total E-Tokens: ${totalEtokens}`;
             });
         }
     </script>
